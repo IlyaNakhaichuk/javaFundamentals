@@ -8,9 +8,8 @@ public class Matrix {
         matrix = new int[matrixDimension][matrixDimension];
         for (int i = 0; i <matrix.length; i++) {
             for (int j = 0; j <matrix[i].length ; j++) {
-                int a =(int) Integer.MIN_VALUE;
-                int b = (int) Integer.MAX_VALUE;
-                matrix[i][j] = new Random().nextInt(214748364 + 247483646) - 247483646;
+                //matrix[i][j] = new Random().nextInt();
+                matrix[i][j] = new Random().nextInt(100+100)-100;
             }
         }
     }
@@ -32,6 +31,16 @@ public class Matrix {
         setMatrix( matrixSize );
         for (int i = 0; i <matrix.length ; i++) {
             sotrStrings( matrix[i] );
+        }
+        return matrix;
+    }
+
+    public int[][] outputAnArrayOfColumn(int matrixSize){
+        if(matrix==null || matrixSize!=matrix.length) {
+            setMatrix(matrixSize);
+        }
+        for (int j=0; j <matrix[0].length ;j++) {
+            sotrStrings(matrix[j]);
         }
         return matrix;
     }

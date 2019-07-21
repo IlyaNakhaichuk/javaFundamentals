@@ -10,5 +10,13 @@ public class MatrixMain {
             }
             System.out.println();
         }
+        System.out.println();
+        int [][]matr =matrix.outputAnArrayOfColumn( 5 );
+        for (int i = 0; i <matr.length ; i++) {
+            for (int j = 0; j <matr[i].length ; j++) {
+                System.out.print("\t"+matr[i][j]);
+            }
+            System.out.println();
+        }
     }
 }
