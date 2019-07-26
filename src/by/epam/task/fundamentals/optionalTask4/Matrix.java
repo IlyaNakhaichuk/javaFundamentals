@@ -8,8 +8,7 @@ public class Matrix {
         matrix = new int[matrixDimension][matrixDimension];
         for (int i = 0; i <matrix.length; i++) {
             for (int j = 0; j <matrix[i].length ; j++) {
-                //matrix[i][j] = new Random().nextInt();
-                matrix[i][j] = new Random().nextInt(100+100)-100;
+                matrix[i][j] = new Random().nextInt();
             }
         }
     }
@@ -27,22 +26,84 @@ public class Matrix {
         return unsortedString;
     }
 
-    public int[][] outputAnArrayOfRows(int matrixSize){
-        setMatrix( matrixSize );
+    private void outputAnArrayOfRows(){
         for (int i = 0; i <matrix.length ; i++) {
             sotrStrings( matrix[i] );
         }
-        return matrix;
     }
 
-    public int[][] outputAnArrayOfColumn(int matrixSize){
-        if(matrix==null || matrixSize!=matrix.length) {
-            setMatrix(matrixSize);
-        }
-        for (int j=0; j <matrix[0].length ;j++) {
-            sotrStrings(matrix[j]);
-        }
-        return matrix;
+    private void outputAnArrayOfColumn(){
+        transposeMatrix();
+        outputAnArrayOfRows();
+        transposeMatrix();
     }
 
+    private void transposeMatrix(){
+        for (int i = 0; i <matrix.length ; i++) {
+            for (int j = i+1; j <matrix.length ; j++) {
+                int temporaryItem = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i]=temporaryItem;
+            }
+
+        }
+    }
+
+    private void displayArray() {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print( "\t" + matrix[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public void setParametrs(int matrixDimension){
+        setMatrix( matrixDimension );
+        System.out.println("Начальная матрица: ");
+        displayArray();
+        outputAnArrayOfRows( );
+        System.out.println("\nОтсортированная по строкам матрица:");
+        displayArray();
+        outputAnArrayOfColumn();
+        System.out.println("\nОтсортированная по стролбцам матрица:");
+        displayArray();
+    }
+
+    private int sumElementMatrix(){
+        int sum=0;
+        for (int i = 0; i <matrix.length ; i++) {
+            sum+=sumOfStringValues(matrix[i]);
+        }
+        return sum;
+    }
+
+    private int sumOfStringValues(int[] matrix) {
+        int sumRows=0;
+        for (int i = 0;i<matrix.length;i++) {
+            if(matrix[i]>0 && i<matrix.length-1){
+                i++;
+                do{
+                    if(i<matrix.length-1) {
+                        sumRows += matrix[i++];
+                    }
+                    if(matrix[i]<0 && matrix.length-1==i){
+                        sumRows=0;
+                        break;
+                    }
+                    if(matrix[i]>0){
+                        break;
+                    }
+                }while(true);
+            }
+        }
+        return sumRows;
+    }
+
+    public void exemple(int matrixDimension){
+        setMatrix( matrixDimension );
+        System.out.println("Тест");
+        displayArray();
+        System.out.println("Сумма элементов: "+ sumElementMatrix());
+    }
 }
